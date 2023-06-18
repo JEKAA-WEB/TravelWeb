@@ -1,11 +1,18 @@
 <?php
+
+header("Cache-Control: no-cache, no-store, must-revalidate");
 include('config/db_connect.php');
 
-$sql="SELECT  FROM packages";
+$sql="SELECT p.name, p.description, days, pax, p.image as image, price,  sd.country, sd.city as destination, avg(star) as star, count(star) as review_count
+FROM Packages p 
+JOIN SupportedDestinations sd on p.destination = sd.id
+LEFT JOIN PackageReviews pr on pr.reviewedPackage = p.id
+GROUP BY p.name, p.description, p.days, p.pax, p.image, p.price, sd.country, sd.city
+";
 
 $result= mysqli_query($conn, $sql);
 
-$packages= mysqli_fetch_all($results, MYSQLI_ASSOC);
+$packages= mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 mysqli_free_result($result);
 mysqli_close ($conn);
@@ -13,107 +20,119 @@ mysqli_close ($conn);
 ?>
 <!DOCTYPE html>
 <?php include('header.php') ?>
-    
-    <section class="package" id="package">
+
+<section class="package" id="package">
     <div class="container">
-    
-   
-      <p class="section-subtitle">Popular Packeges</p>
 
-      <h2 class="h2 section-title">Checkout Our Packeges</h2>
 
-      <p class="section-text">
-        Fusce hic augue velit wisi quibusdam pariatur, iusto primis, nec nemo, rutrum. Vestibulum cumque laudantium.
-        Sit ornare
-        mollitia tenetur, aptent.
-      </p>
+        <p class="section-subtitle">Popular Packeges</p>
 
-    <ul class="package-list">
-      
-      <?php foreach($packages as $package) { ?>
-      
-        <li>
-          <div class="package-card">
+        <h2 class="h2 section-title">Checkout Our Packeges</h2>
 
-            <figure class="card-banner">
-              <img src="data:image/jpg;charset=utf8;base64,<?php echo $package['image']; ?>" alt="Summer Holiday To The Oxolotan River" loading="lazy">
-            </figure>
+        <p class="section-text">
+            Fusce hic augue velit wisi quibusdam pariatur, iusto primis, nec nemo, rutrum. Vestibulum cumque laudantium.
+            Sit ornare
+            mollitia tenetur, aptent.
+        </p>
 
-            <div class="card-content">
+        <ul class="package-list">
 
-              <h3 class="h3 card-title"><?php echo $package['name']; ?></h3>
+            <?php foreach($packages as $package) { ?>
 
-              <p class="card-text"> <?php echo $package['description']; ?> </p>
+            <li>
+                <div class="package-card">
 
-              <ul class="card-meta-list">
+                    <figure class="card-banner">
+                        <img src="<?php echo $package['image']; ?>" alt="Summer Holiday To The Oxolotan River"
+                            loading="lazy">
+                    </figure>
 
-                <li class="card-meta-item">
-                  <div class="meta-box">
-                    <ion-icon name="time"></ion-icon>
+                    <div class="card-content">
 
-                    <p class="text"><?php echo $package['days']; ?></p>
-                  </div>
-                </li>
+                        <h3 class="h3 card-title"><?php echo $package['name']; ?></h3>
 
-                <li class="card-meta-item">
-                  <div class="meta-box">
-                    <ion-icon name="people"></ion-icon>
+                        <p class="card-text"> <?php echo $package['description']; ?> </p>
 
-                    <p class="text"><?php echo $package['pax']; ?></p>
-                  </div>
-                </li>
+                        <ul class="card-meta-list">
 
-                <li class="card-meta-item">
-                  <div class="meta-box">
-                    <ion-icon name="location"></ion-icon>
+                            <li class="card-meta-item">
+                                <div class="meta-box">
+                                    <ion-icon name="time"></ion-icon>
 
-                    <p class="text"><?php echo $package['destination'].",".$package['country'] ; ?></p>
-                  </div>
-                </li>
+                                    <p class="text"><?php echo $package['days']; ?></p>
+                                </div>
+                            </li>
 
-              </ul>
+                            <li class="card-meta-item">
+                                <div class="meta-box">
+                                    <ion-icon name="people"></ion-icon>
 
-            </div>
+                                    <p class="text"><?php echo $package['pax']; ?></p>
+                                </div>
+                            </li>
 
-            <div class="card-price">
+                            <li class="card-meta-item">
+                                <div class="meta-box">
+                                    <ion-icon name="location"></ion-icon>
 
-              <div class="wrapper">
+                                    <p class="text"><?php echo $package['destination'].", ".$package['country'] ; ?></p>
+                                </div>
+                            </li>
 
-              <?php for($i=o; $i<$package['stars']; $i++) { ?>
-               
-               <?php echo '
+                        </ul>
+
+                    </div>
+
+                    <div class="card-price">
+
+                        <div class="wrapper">
+
+                            <?php for($i=0; $i<$package['star']; $i++) { ?>
+
+                            <?php echo '
+                <div class="card-rating">
+                  <ion-icon name="star" class="selected"></ion-icon>
+                </div>';
+                ?>
+
+                            <?php } ?>
+                            <?php for($i=0; $i<5-$package['star']; $i++) { ?>
+
+                            <?php echo '
                 <div class="card-rating">
                   <ion-icon name="star"></ion-icon>
                 </div>';
                 ?>
-             
-                <?php } ?>
-              </div>
 
-              <p class="price">
-               
-              <?php echo $package['price']; ?>
-                
-                <span>/ per person</span>
-              </p>
+                            <?php } ?>
+                            <?php echo "(".$package['review_count'].")"; ?>
+                        </div>
 
-              <button class="btn btn-secondary">Book Now</button>
+                        <p class="price">
 
-            </div>
+                            <?php echo $package['price']; ?>
 
-          </div>
-        </li>
+                            <span>/ per person</span>
+                        </p>
 
-        
-        
-     <?php } ?>
+                        <button class="btn btn-secondary">Book Now</button>
 
-    </ul>
-     
+                    </div>
+
+                </div>
+            </li>
+
+
+
+            <?php } ?>
+
+        </ul>
+
 
     </div>
-  </section>
+</section>
 
 
-    <?php include ('footer.php') ?>
+<?php include ('footer.php') ?>
+
 </html>
