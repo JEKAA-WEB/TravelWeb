@@ -24,6 +24,27 @@ const navToggleEvent = function (elem) {
 navToggleEvent(navElemArr);
 navToggleEvent(navLinks);
 
+/* book now buttons 1 and 2 */
+
+document.getElementById("booking").addEventListener("click", function() {
+  window.location.href = "Booking.php";
+});
+
+
+document.getElementById("booking2").addEventListener("click", function() {
+  window.location.href = "booking.php";
+});
+
+document.getElementById("packages").addEventListener("click", function() {
+  window.location.href = "packages.php";
+});
+
+document.getElementById("dest").addEventListener("click", function() {
+  window.location.href = "destinations.php";
+});
+
+
+
 
 
 /**
