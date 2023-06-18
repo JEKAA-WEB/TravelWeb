@@ -1,10 +1,59 @@
 <?php
 include ('config/db_connect.php');
 
+
+$errors=['departureDate'=>'', 'returnDate'=>'', 'pax'=>'', 'destination'=>''];
+
 if (isset($_POST['submit'])){
+    
+    if(empty($_POST['departureDate'])){
+        $errors['departureDate']='A departure date is required <br/>';
+    } else{
+        $departureDate = $_POST['departureDate'];
+     
+    }
+    if(empty($_POST['returnDate'])){
+        $errors['returnDate']= 'A return date is required <br/>';
+    } else{
+    $returnDate= $_POST['returnDate'];
 
+    } 
+ 
+    
+    if(empty($_POST['pax'])){
+        $errors['pax']='number of people is required <br/>';
+    } else{
+        $pax = $_POST['pax'];
+       
+    }
+    if(empty($_POST['destination'])){
+        $errors['destination']='You have not chosen a destination for your trip <br/>';
+    } else{
+        $destination = $_POST['destination'];
+       
+    }
 
-    echo 'hello';
+    if (array_filter($errors)){
+        echo 'there are errors in the form';
+    } else{
+      
+      $departureDate= $_POST['departureDate'] ;
+      $returnDate= $_POST['returnDate'];
+      $pax=$_POST['pax'];
+      $destination=$_POST['destination'];
+      
+      $sql="INSERT INTO Booking (departureDate,returnDate,pax,destination) VALUES ('$departureDate', '$returnDate', '$pax', '$destination')";
+
+      
+      if(mysqli_query($conn, $sql)){
+        header('location: index.php');
+      }else{
+        echo 'query error: ' . mysqli_error();
+      }
+    
+     
+    }
+    
 
 }
 
@@ -24,20 +73,32 @@ if (isset($_POST['submit'])){
 <body>
     <h1>Travel Booking</h1>
     <form id="bookingForm" action="booking.php" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" required><br>
+        <label for="departureDate">Departure date:</label>
+        <input type="date" name="departureDate" required><br>
+        
+        <label for="returnDate">Return date:</label>
+        <input type="date" name="returnDate" required><br>
 
         <label for="pax">Number of people:</label>
-        <input type="number" id="name" required><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" required><br>
+        <input type="number" name="pax" required><br>
 
         <label for="destination">Destination:</label>
-        <input type="text" id="destination" required><br>
+            
+            <select name="destination">
+                <?php 
+                $sql="SELECT destinations FROM Booking";
+                $result=mysqli_query($conn,$sql);
+                $destinations= mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-        <label for="date">Date:</label>
-        <input type="date" id="date" required><br>
+                mysqli_free_result($result);
+                mysqli_close($conn);
+                ?>
+
+                <?php foreach($destinations as $destination){ ?>
+                     <option ><?php echo $destination['city']; ?></option>
+                <?php } ?>
+            </select>
+          
 
         <button type="submit" name="submit">Book Now</button>
     </form>

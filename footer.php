@@ -77,22 +77,7 @@
           &copy; 2023 <a href="">3rdYearWebProject</a>. All rights reserved
         </p>
 
-        <ul class="footer-bottom-list">
-
-          <li>
-            <a href="#" class="footer-bottom-link">Privacy Policy</a>
-          </li>
-
-          <li>
-            <a href="#" class="footer-bottom-link">Term & Condition</a>
-          </li>
-
-          <li>
-            <a href="#" class="footer-bottom-link">FAQ</a>
-          </li>
-
-        </ul>
-
+       
       </div>
     </div>
 

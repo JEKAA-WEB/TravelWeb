@@ -113,32 +113,29 @@
                     <ul class="navbar-list">
 
                         <li>
-                            <a href="/web_project#home" class="navbar-link" data-nav-link>home</a>
+                            <a href="/TravelWeb#home" class="navbar-link" data-nav-link>home</a>
+                        </li>
+
+                       
+                        <li>
+                            <a href="/TravelWeb#destination" class="navbar-link" data-nav-link>destination</a>
                         </li>
 
                         <li>
-                            <a href="/#" class="navbar-link" data-nav-link>about us</a>
+                            <a href="/TravelWeb#package" class="navbar-link" data-nav-link>packages</a>
                         </li>
 
                         <li>
-                            <a href="/web_project#destination" class="navbar-link" data-nav-link>destination</a>
+                            <a href="/TravelWeb#gallery" class="navbar-link" data-nav-link>gallery</a>
                         </li>
 
                         <li>
-                            <a href="/web_project#package" class="navbar-link" data-nav-link>packages</a>
-                        </li>
-
-                        <li>
-                            <a href="/web_project#gallery" class="navbar-link" data-nav-link>gallery</a>
-                        </li>
-
-                        <li>
-                            <a href="/web_project#contact" class="navbar-link" data-nav-link>contact us</a>
+                            <a href="/TravelWeb#contact" class="navbar-link" data-nav-link>contact us</a>
                         </li>
 
 
                         <li>
-                            <a href="/web_project#sign in" class="navbar-link" data-nav-link>Register or sign in</a>
+                            <a href="/TravelWeb#sign in" class="navbar-link" data-nav-link>Register or sign in</a>
                         </li>
 
 
