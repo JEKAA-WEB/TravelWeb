@@ -1,0 +1,179 @@
+body {
+  margin: 0;
+  font-family: 'Fredoka One', cursive;
+  box-sizing: border-box;
+}
+
+main {
+  position: relative;
+  text-align: center;
+  background: white;
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+  color: white;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.container {
+  height: 90vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+form {
+  background-color: #fff;
+  box-shadow: 0 5px 50px rgba(0, 0, 0, .5);
+  width: 50vw;
+  height: 70vw;
+  border-radius: 2vw;
+  margin-top: 2vw;
+  justify-content: space-evenly !important;
+  padding: 2px;
+}
+
+.form-title{
+  height: 20%;
+  height: 10%;
+}
+
+.form-title h2 {
+  font-size: 4.5vw;
+  color: #000;
+  margin: -1vw;
+  
+}
+
+
+
+
+.user-infosign {
+  width: 100%;
+  height: 5%;
+  justify-content: space-around;
+  padding-bottom:40px;
+  margin-left: 10px;
+  
+  
+}
+
+.user-info {
+  width: 100%;
+  height: 56%;
+  justify-content: space-around;
+  padding-bottom:40px;
+  
+}
+
+.user-box {
+  position: relative;
+  width: 80%;
+  margin-top:20px;
+  line-height: 3.8vw;
+}
+
+.user-boxsignin {
+  position: relative;
+  width: 80%;
+  margin-top:20px;
+  line-height: 3.8vw;
+}
+
+.user-box input {
+  width: 100%;
+  line-height: inherit;
+  font-size: 2vw;
+  outline: none;
+  border: none;
+  border-bottom: 1.5px solid #999;
+  margin: 0;
+  padding: 0;
+}
+
+.user-box label {
+  position: absolute;
+  color: #999;
+  font-size: 2vw;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition: .6s;
+}
+
+.user-box input:focus~label,
+.user-box input:valid~label {
+  top: -10px;
+  font-size: 1.5vw;
+  color: #7f00ff;
+  text-shadow: 0px 0px 10px rgba(128, 0, 255, 0.35);
+}
+
+.user-box input:focus {
+  border-bottom: 1.6px solid rgba(128, 0, 255, 0.5);
+}
+
+
+.container button {
+  color: #fff;
+  padding: .5vw 3.2vw;
+  border-radius: 2vw;
+  font-size: 3.2vw;
+  background: rgb(34,53,68);
+  cursor: pointer;
+  flex-direction: row;
+  border: none;
+  font-family: 'Fredoka One', cursive;
+  transition: all .4s;
+}
+
+.wrapper {
+  height: 10vw;
+}
+.wrapper a{
+  text-decoration: none;
+  color: #999;
+  font-size: 1.8vw;
+}
+
+.wrapper p {
+  margin: 0;
+}
+
+.waves {
+  position: relative;
+  width: 100%;
+  margin-bottom: -7px;
+  max-height: 150px;
+}
+
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
