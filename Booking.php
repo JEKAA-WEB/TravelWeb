@@ -74,7 +74,7 @@ if (isset($_POST['submit'])){
     <form id="bookingForm" action="booking.php" method="POST">
         <label for="departureDate">Departure date:</label>
         <input type="date" name="departureDate" required><br>
-        
+
         <label for="returnDate">Return date:</label>
         <input type="date" name="returnDate" required><br>
 
@@ -82,10 +82,10 @@ if (isset($_POST['submit'])){
         <input type="number" name="pax" required><br>
 
         <label for="destination">Destination:</label>
-            
-            <select name="destination">
-                <?php 
-                $sql="SELECT destinations FROM Booking";
+
+        <select name="destination">
+            <?php 
+                $sql="SELECT city FROM SupportedDestinations";
                 $result=mysqli_query($conn,$sql);
                 $destinations= mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -93,11 +93,11 @@ if (isset($_POST['submit'])){
                 mysqli_close($conn);
                 ?>
 
-                <?php foreach($destinations as $destination){ ?>
-                     <option ><?php echo $destination['city']; ?></option>
-                <?php } ?>
-            </select>
-          
+            <?php foreach($destinations as $destination){ ?>
+            <option><?php echo $destination['city']; ?></option>
+            <?php } ?>
+        </select>
+
 
         <button type="submit" name="submit">Book Now</button>
     </form>
