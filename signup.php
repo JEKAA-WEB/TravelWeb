@@ -1,58 +1,58 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/media-queries.css" />
+
+    <link rel="stylesheet" href="assets/css/auth.css" />
+    <link rel="stylesheet" href="assets/css/auth-media-query.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <title>LoginForm</title>
-  </head>
+<?php include ('header.php'); ?>
+  
 
-  <body>
-    <main>
-      <section class="container flex">
-        <form class="flex">
+    <main class="a">
+      <section class="container1 flex1">
+        <form class="flex1" class="forma">
 
-          <div class="form-title flex">
+          <div class="form-title1 flex1">
             <h2>Sign Up</h2>
           </div>
 
-          <div class="user-info flex">
+          <div class="user-info1 flex1">
 
-            <div class="user-box">
+            <div class="user-box1">
               <input type="text" required="" />
               <label>Username</label>
             </div>
 
-            <div class="user-box">
+            <div class="user-box1">
                 <input type="text" required="" />
                 <label>First Name</label>
               </div>
               
-            <div class="user-box">
+            <div class="user-box1">
               <input type="text" required="" />
               <label>Last Name</label>
             </div>
 
-            <div class="user-box">
+            <div class="user-box1">
                 <input type="email" required="" />
                 <label>Email</label>
               </div>
 
-            <div class="user-box">
+            <div class="user-box1">
                 <input type="password" required="" />
                 <label>Password</label>
               </div>
 
           </div>
 
-          <div class="wrapper flex">
-            <button class="flex">
+          <div class="wrapper1 flex1">
+            <button class="flex1">
               <span>S</span>
               <span>i</span>
               <span>g</span>
@@ -60,10 +60,12 @@
               <span>U</span>
               <span>p</span>
             </button>
-            <p><span style="color:black; font-size:10px;">Already have an account?</span>   <a href="Signin.html" style="color:blue;">Signin</a></p>
+            <p><span style="color:black; font-size:10px;">Already have an account?</span>   <a href="Signin.php" style="color:blue;">Signin</a></p>
           </div>
         </form>
       </section>
     </main>
-  </body>
+
+<?php include ('footer.php'); ?>
+
 </html>
