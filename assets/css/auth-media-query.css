@@ -2,7 +2,7 @@
 }
 
 @media (min-width: 768px) {
-  .forma {
+  #forma {
     width: 38vw;
     height: 46vw;
   }
@@ -14,7 +14,6 @@
   .social-text1 p {
     font-size: 1.4vw;
   }
-
 
 
   .user-box1 {
@@ -40,7 +39,7 @@
 }
 
 @media (min-width: 992px) {
-  .forma {
+  #forma {
     width: 32vw;
     height: 38vw;
   }
@@ -76,7 +75,7 @@
 }
 
 @media (min-width: 1200px) {
-  .forma {
+  #forma {
     width: 26vw;
     height: 32vw;
   }

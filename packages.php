@@ -3,11 +3,11 @@
 header("Cache-Control: no-cache, no-store, must-revalidate");
 include('config/db_connect.php');
 
-$sql="SELECT p.name, p.description, days, pax, p.image as image, price,  sd.country, sd.city as destination, avg(star) as star, count(star) as review_count
+$sql="SELECT p.id as id, p.name, p.description, days, pax, p.image as image, price,  sd.country, sd.city as destination, avg(star) as star, count(star) as review_count
 FROM Packages p 
 JOIN SupportedDestinations sd on p.destination = sd.id
 LEFT JOIN PackageReviews pr on pr.reviewedPackage = p.id
-GROUP BY p.name, p.description, p.days, p.pax, p.image, p.price, sd.country, sd.city
+GROUP BY p.name, p.description, p.days, p.pax, p.image, p.price, sd.country, sd.city, p.id
 ";
 
 $result= mysqli_query($conn, $sql);
@@ -18,6 +18,8 @@ mysqli_free_result($result);
 mysqli_close ($conn);
 
 ?>
+
+
 <!DOCTYPE html>
 <?php include('header.php') ?>
 
@@ -25,9 +27,9 @@ mysqli_close ($conn);
     <div class="container">
 
 
-        <p class="section-subtitle">Popular Packeges</p>
+        <p class="section-subtitle">Popular Packages</p>
 
-        <h2 class="h2 section-title">Checkout Our Packeges</h2>
+        <h2 class="h2 section-title">Checkout Our Packages</h2>
 
         <p class="section-text">
             Fusce hic augue velit wisi quibusdam pariatur, iusto primis, nec nemo, rutrum. Vestibulum cumque laudantium.
@@ -115,7 +117,9 @@ mysqli_close ($conn);
                             <span>/ per person</span>
                         </p>
 
-                        <button class="btn btn-secondary">Book Now</button>
+                        <form action='bookingPackage.php' method="POST"><button type='submit' name='bookPackage' class="btn btn-secondary">Book Now</button>
+                                <input type="hidden" value='<?php echo $package['id'];?>' name='packageId'/>
+                    </form>
 
                     </div>
 

@@ -32,7 +32,7 @@ document.getElementById("booking").addEventListener("click", function() {
 
 
 document.getElementById("booking2").addEventListener("click", function() {
-  window.location.href = "booking.php";
+  window.location.href = "Booking.php";
 });
 
 document.getElementById("packages").addEventListener("click", function() {
@@ -42,6 +42,8 @@ document.getElementById("packages").addEventListener("click", function() {
 document.getElementById("dest").addEventListener("click", function() {
   window.location.href = "destinations.php";
 });
+
+
 
 
 
