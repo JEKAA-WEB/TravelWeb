@@ -1,10 +1,6 @@
 <?php
 
-
-
-
-
-
+include('config/db_connect.php');
 
 ?>
 
@@ -27,9 +23,9 @@
           <h2 class="h1 hero-title">Unleash Your Travel Dreams</h2>
 
           <p class="hero-text">
-            Ac mi duis mollis. Sapiente? Scelerisque quae, penatibus? Suscipit class corporis nostra rem quos
-            voluptatibus habitant?
-            Fames, vivamus minim nemo enim, gravida lobortis quasi, eum.
+          It's time to break free from the mundane and unleash your 
+          wildest travel dreams. Let your imagination soar and let us 
+          craft the perfect itinerary to turn your wanderlust into reality
           </p>
 
           <div class="btn-group">
@@ -42,176 +38,85 @@
       </section>
 
 
-
-
-
       <!-- 
-        - #TOUR SEARCH
-      -->
-
-      <section class="tour-search">
-        <div class="container">
-
-          <form action="" class="tour-search-form">
-
-            <div class="input-wrapper">
-              <label for="destination" class="input-label">Search Destination*</label>
-
-              <input type="text" name="destination" id="destination" required placeholder="Enter Destination"
-                class="input-field">
-            </div>
-
-            <div class="input-wrapper">
-              <label for="people" class="input-label">Pax Number*</label>
-
-              <input type="number" name="people" id="people" required placeholder="No.of People" class="input-field">
-            </div>
-
-            <div class="input-wrapper">
-              <label for="checkin" class="input-label">Checkin Date**</label>
-
-              <input type="date" name="checkin" id="checkin" required class="input-field">
-            </div>
-
-            <div class="input-wrapper">
-              <label for="checkout" class="input-label">Checkout Date*</label>
-
-              <input type="date" name="checkout" id="checkout" required class="input-field">
-            </div>
-
-            <button type="submit" class="btn btn-secondary">Inquire now</button>
-
-          </form>
-
-        </div>
-      </section>
-
-
-
-
-
-      <!-- 
-        - #POPULAR
+        - #DESTINATIONS
       -->
 
       <section class="popular" id="destination">
         <div class="container">
 
-          <p class="section-subtitle">Uncover place</p>
+          <p class="section-subtitle">Uncover places</p>
 
           <h2 class="h2 section-title">Popular destination</h2>
 
           <p class="section-text">
-            Fusce hic augue velit wisi quibusdam pariatur, iusto primis, nec nemo, rutrum. Vestibulum cumque laudantium.
-            Sit ornare
-            mollitia tenetur, aptent.
+          Step into a world of wonder and explore popular destinations that have 
+          captivated the hearts of travelers worldwide. From the bustling streets of vibrant cities to serene natural landscapes, 
+          these destinations offer an enchanting tapestry of experiences
           </p>
 
-          <ul class="popular-list">
+        <ul class="popular-list">
+            
+                      <?php 
+                      $sql="SELECT sd.description, sd.image as image, sd.country, sd.city as city, COALESCE(avg(star), 0) as star, COALESCE(count(star), 0) as review_count
+                      FROM SupportedDestinations sd 
+                      LEFT JOIN DestinationReviews dr on dr.reviewedDestination = sd.id
+                      GROUP BY sd.description, sd.image, sd.country, sd.city, sd.createdAt
+                      ORDER BY sd.createdAt DESC
+                      LIMIT 3";
+                      
+                      $result= mysqli_query($conn, $sql);
+                      
+                      $destinations= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                      
+                      mysqli_free_result($result);
+                      
+                    
+                      ?>
 
+          <?php foreach ($destinations as $destination) {   ?>
+                   
             <li>
               <div class="popular-card">
 
-                <figure class="card-img">
-                  <img src="./assets/images/baleMt.jpg" alt="Bale, Ethiopia" loading="lazy">
-                </figure>
+                 <div class="destination card-content">
 
-                <div class="card-content">
+                        <div class="card-rating">
 
-                  <div class="card-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                  </div>
+                            <?php for ($i=0; $i<$destination['star']; $i++){ ?>
+                            <ion-icon name="star" class="selected"></ion-icon>
+                            <?php } ?>
+                            <?php for ($i=0; $i<5-$destination['star']; $i++){ ?>
+                            <ion-icon name="star"></ion-icon>
+                            <?php } ?>
 
-                  <p class="card-subtitle">
-                    <a href="#">Ethiopia</a>
-                  </p>
+                        </div>
 
-                  <h3 class="h3 card-title">
-                    <a href="#">Bale Mountain</a>
-                  </h3>
+                        <p class="card-subtitle">
+                            <a href="#"><?php echo $destination['country'];?></a>
+                        </p>
 
-                  <p class="card-text">
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                  </p>
+                        <h3 class="h3 card-title">
+                            <a href="#"><?php echo $destination['city'];?></a>
+                        </h3>
 
-                </div>
+                        <p class="destination card-text">
+                            <?php echo $destination['description'];?>
+                        </p>
 
-              </div>
-            </li>
+                    </div>
 
-            <li>
-              <div class="popular-card">
-
-                <figure class="card-img">
-                  <img src="./assets/images/friendshipPark.jpg" alt="Burj khalifa, dubai" loading="lazy">
-                </figure>
-
-                <div class="card-content">
-
-                  <div class="card-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                  </div>
-
-                  <p class="card-subtitle">
-                    <a href="#">Ethiopia</a>
-                  </p>
-
-                  <h3 class="h3 card-title">
-                    <a href="#">FriendShip Park</a>
-                  </h3>
-
-                  <p class="card-text">
-                    Fusce hic augue velit wisi ips quibusdam pariatur, iusto.
-                  </p>
-
-                </div>
+                    <figure class="card-img">
+                        <img src="<?php echo $destination['image'];?>" class="img-fluid?>" alt="Bale, Ethiopia"
+                            loading="lazy">
+                    </figure>
 
               </div>
             </li>
+            
+          <?php } ?>
 
-            <li>
-              <div class="popular-card">
-
-                <figure class="card-img">
-                  <img src="./assets/images/popular-3.jpg" alt="Kyoto temple, japan" loading="lazy">
-                </figure>
-
-                <div class="card-content">
-
-                  <div class="card-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                  </div>
-
-                  <p class="card-subtitle">
-                    <a href="#">Japan</a>
-                  </p>
-
-                  <h3 class="h3 card-title">
-                    <a href="#">Kyoto temple</a>
-                  </h3>
-
-                  <p class="card-text">
-                    Fusce hic augue velit wisi ips quibusdam pariatur, iusto.
-                  </p>
-
-                </div>
-
-              </div>
-            </li>
-
-          </ul>
+        </ul>
 
           <button class="btn btn-primary" id="dest">More destinations</button>
 
@@ -223,399 +128,132 @@
 
 
       <!-- 
-        - #PACKAGE
+        - #PACKAGES
       -->
 
       <section class="package" id="package">
         <div class="container">
 
-          <p class="section-subtitle">Popular Packeges</p>
+          <p class="section-subtitle">Popular Packages</p>
 
-          <h2 class="h2 section-title">Checkout Our Packeges</h2>
+          <h2 class="h2 section-title">Checkout Our Packages</h2>
 
           <p class="section-text">
-            Fusce hic augue velit wisi quibusdam pariatur, iusto primis, nec nemo, rutrum. Vestibulum cumque laudantium.
-            Sit ornare
-            mollitia tenetur, aptent.
+          Discover a world of possibilities with our diverse range of travel packages, 
+          tailored to suit every wanderer's dream. From exhilarating escapades to cultural immersions, 
+          we have thoughtfully crafted packages to cater to all travel styles and preferences
           </p>
 
           <ul class="package-list">
+          
+              <?php
+
+                $sql="SELECT p.name, p.description, days, pax, p.image as image, price,  sd.country, sd.city as destination, avg(star) as star, count(star) as review_count
+                FROM Packages p 
+                JOIN SupportedDestinations sd on p.destination = sd.id
+                LEFT JOIN PackageReviews pr on pr.reviewedPackage = p.id
+                GROUP BY p.name, p.description, p.days, p.pax, p.image, p.price, sd.country, sd.city, p.createdAt
+                ORDER BY p.createdAt DESC
+                LIMIT 4
+                ";
+
+                $result= mysqli_query($conn, $sql);
+
+                $packages= mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+                mysqli_free_result($result);
+                mysqli_close ($conn);
+
+              ?>
+
+           <?php foreach($packages as $package) { ?>
 
             <li>
-              <div class="package-card">
+               <div class="package-card">
 
-                <figure class="card-banner">
-                  <img src="./assets/images/lalibela.jpg" alt="Summer Holiday To The Oxolotan River" loading="lazy">
-                </figure>
+                    <figure class="card-banner">
+                        <img src="<?php echo $package['image']; ?>" alt="Summer Holiday To The Oxolotan River"
+                            loading="lazy">
+                    </figure>
 
-                <div class="card-content">
+                    <div class="card-content">
 
-                  <h3 class="h3 card-title">Summer Holiday To The Lalibela</h3>
+                        <h3 class="h3 card-title"><?php echo $package['name']; ?></h3>
 
-                  <p class="card-text">
-                    Laoreet, voluptatum nihil dolor esse quaerat mattis explicabo maiores, est aliquet porttitor! Eaque,
-                    cras, aspernatur.
-                  </p>
+                        <p class="card-text"> <?php echo $package['description']; ?> </p>
 
-                  <ul class="card-meta-list">
+                        <ul class="card-meta-list">
 
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="time"></ion-icon>
+                            <li class="card-meta-item">
+                                <div class="meta-box">
+                                    <ion-icon name="time"></ion-icon>
 
-                        <p class="text">7D/6N</p>
-                      </div>
-                    </li>
+                                    <p class="text"><?php echo $package['days']; ?></p>
+                                </div>
+                            </li>
 
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="people"></ion-icon>
+                            <li class="card-meta-item">
+                                <div class="meta-box">
+                                    <ion-icon name="people"></ion-icon>
 
-                        <p class="text">pax: 10</p>
-                      </div>
-                    </li>
+                                    <p class="text"><?php echo $package['pax']; ?></p>
+                                </div>
+                            </li>
 
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="location"></ion-icon>
+                            <li class="card-meta-item">
+                                <div class="meta-box">
+                                    <ion-icon name="location"></ion-icon>
 
-                        <p class="text">Ethiopia</p>
-                      </div>
-                    </li>
+                                    <p class="text"><?php echo $package['destination'].", ".$package['country'] ; ?></p>
+                                </div>
+                            </li>
 
-                  </ul>
+                        </ul>
 
-                </div>
-
-                <div class="card-price">
-
-                  <div class="wrapper">
-
-                    <p class="reviews">(20 reviews)</p>
-
-                    <div class="card-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
                     </div>
 
-                  </div>
+                    <div class="card-price">
 
-                  <p class="price">
-                    $520
-                    <span>/ per person</span>
-                  </p>
+                        <div class="wrapper">
 
-                  <button class="btn btn-secondary">Book Now</button>
+                            <?php for($i=0; $i<$package['star']; $i++) { ?>
 
-                </div>
+                            <?php echo '
+                                      <div class="card-rating">
+                                        <ion-icon name="star" class="selected"></ion-icon>
+                                      </div>';
+                            ?>
 
-              </div>
-            </li>
+                            <?php } ?>
+                            <?php for($i=0; $i<5-$package['star']; $i++) { ?>
 
-            
-            <li>
-              <div class="package-card">
+                            <?php echo '
+                                      <div class="card-rating">
+                                        <ion-icon name="star"></ion-icon>
+                                      </div>';
+                            ?>
 
-                <figure class="card-banner">
-                  <img src="./assets/images/beachPackage-1.jpg" alt="Experience The Great Holiday On Beach" loading="lazy">
-                </figure>
+                            <?php } ?>
+                            <?php echo "(".$package['review_count'].")"; ?>
+                        </div>
 
-                <div class="card-content">
+                        <p class="price">
 
-                  <h3 class="h3 card-title">Experience The Great Holiday On Beach</h3>
+                            <?php echo $package['price']; ?>
 
-                  <p class="card-text">
-                    Laoreet, voluptatum nihil dolor esse quaerat mattis explicabo maiores, est aliquet porttitor! Eaque,
-                    cras, aspernatur.
-                  </p>
+                            <span>/ per person</span>
+                        </p>
 
-                  <ul class="card-meta-list">
+                        <button class="btn btn-secondary">Book Now</button>
 
-                    
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="time"></ion-icon>
-
-                        <p class="text">7D/6N</p>
-                      </div>
-                    </li>
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="people"></ion-icon>
-
-                        <p class="text">pax: 10</p>
-                      </div>
-                    </li>
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="location"></ion-icon>
-
-                        <p class="text">Malaysia</p>
-                      </div>
-                    </li>
-
-                  </ul>
-
-                </div>
-
-                <div class="card-price">
-
-                  <div class="wrapper">
-
-                    <p class="reviews">(25 reviews)</p>
-
-                    <div class="card-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
                     </div>
 
-                  </div>
-
-                  <p class="price">
-                    $750
-                    <span>/ per person</span>
-                  </p>
-
-                  <button class="btn btn-secondary">Book Now</button>
-
                 </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="package-card">
-
-                <figure class="card-banner">
-                  <img src="./assets/images/package-2LakeTana.jpg" alt="Summer Holiday To The Oxolotan River" loading="lazy">
-                </figure>
-
-                <div class="card-content">
-
-                  <h3 class="h3 card-title">Summer Holiday To The Lake Tana</h3>
-
-                  <p class="card-text">
-                    Laoreet, voluptatum nihil dolor esse quaerat mattis explicabo maiores, est aliquet porttitor! Eaque,
-                    cras, aspernatur.
-                  </p>
-
-                  <ul class="card-meta-list">
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="time"></ion-icon>
-
-                        <p class="text">7D/6N</p>
-                      </div>
-                    </li>
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="people"></ion-icon>
-
-                        <p class="text">pax: 10</p>
-                      </div>
-                    </li>
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="location"></ion-icon>
-
-                        <p class="text">Malaysia</p>
-                      </div>
-                    </li>
-
-                  </ul>
-
-                </div>
-
-                <div class="card-price">
-
-                  <div class="wrapper">
-
-                    <p class="reviews">(20 reviews)</p>
-
-                    <div class="card-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                    </div>
-
-                  </div>
-
-                  <p class="price">
-                    $520
-                    <span>/ per person</span>
-                  </p>
-
-                  <button class="btn btn-secondary">Book Now</button>
-
-                </div>
-
-              </div>
             </li>
 
 
 
-            <li>
-              <div class="package-card">
-
-                <figure class="card-banner">
-                  <img src="./assets/images/packege-3.jpg" alt="Santorini Island's Weekend Vacation" loading="lazy">
-                </figure>
-
-                <div class="card-content">
-
-                  <h3 class="h3 card-title">Santorini Island's Weekend Vacation</h3>
-
-                  <p class="card-text">
-                    Laoreet, voluptatum nihil dolor esse quaerat mattis explicabo maiores, est aliquet porttitor! Eaque,
-                    cras, aspernatur.
-                  </p>
-
-                  <ul class="card-meta-list">
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="time"></ion-icon>
-
-                        <p class="text">7D/6N</p>
-                      </div>
-                    </li>
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="people"></ion-icon>
-
-                        <p class="text">pax: 10</p>
-                      </div>
-                    </li>
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="location"></ion-icon>
-
-                        <p class="text">Malaysia</p>
-                      </div>
-                    </li>
-
-                  </ul>
-
-                </div>
-
-                <div class="card-price">
-
-                  <div class="wrapper">
-
-                    <p class="reviews">(40 reviews)</p>
-
-                    <div class="card-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                    </div>
-
-                  </div>
-
-                  <p class="price">
-                    $660
-                    <span>/ per person</span>
-                  </p>
-
-                  <button class="btn btn-secondary">Book Now</button>
-
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="package-card">
-
-                <figure class="card-banner">
-                  <img src="./assets/images/fasil.avif" alt="Santorini Island's Weekend Vacation" loading="lazy">
-                </figure>
-
-                <div class="card-content">
-
-                  <h3 class="h3 card-title">Gondar Fasil Weekend Vacation</h3>
-
-                  <p class="card-text">
-                    Laoreet, voluptatum nihil dolor esse quaerat mattis explicabo maiores, est aliquet porttitor! Eaque,
-                    cras, aspernatur.
-                  </p>
-
-                  <ul class="card-meta-list">
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="time"></ion-icon>
-
-                        <p class="text">8D/6N</p>
-                      </div>
-                    </li>
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="people"></ion-icon>
-
-                        <p class="text">pax: 10</p>
-                      </div>
-                    </li>
-
-                    <li class="card-meta-item">
-                      <div class="meta-box">
-                        <ion-icon name="location"></ion-icon>
-
-                        <p class="text">Ethiopia</p>
-                      </div>
-                    </li>
-
-                  </ul>
-
-                </div>
-
-                <div class="card-price">
-
-                  <div class="wrapper">
-
-                    <p class="reviews">(0 reviews)</p>
-
-                    <div class="card-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                    </div>
-
-                  </div>
-
-                  <p class="price">
-                    $560
-                    <span>/ per person</span>
-                  </p>
-
-                  <button class="btn btn-secondary">Book Now</button>
-
-                </div>
-
-              </div>
-            </li>
-
+            <?php } ?>
 
           </ul>
 
@@ -640,9 +278,8 @@
           <h2 class="h2 section-title">Photo's From Travellers</h2>
 
           <p class="section-text">
-            Fusce hic augue velit wisi quibusdam pariatur, iusto primis, nec nemo, rutrum. Vestibulum cumque laudantium.
-            Sit ornare
-            mollitia tenetur, aptent.
+          These captivating photos serve as a window into the extraordinary
+          moments and breathtaking sights we encountered during our unforgettable vacations, offering a glimpse into the sheer beauty that awaited us
           </p>
 
           <ul class="gallery-list">
@@ -696,12 +333,14 @@
           <div class="cta-content">
             <p class="section-subtitle">Call To Action</p>
 
-            <h2 class="h2 section-title">Ready For Unforgatable Travel. Remember Us!</h2>
+            <h2 class="h2 section-title">Ready For Unforgatable Travel? Remember Us!</h2>
 
             <p class="section-text">
-              Fusce hic augue velit wisi quibusdam pariatur, iusto primis, nec nemo, rutrum. Vestibulum cumque
-              laudantium. Sit ornare
-              mollitia tenetur, aptent.
+              Unleash your wanderlust and embark on a transformative journey with our extraordinary travel experience.
+              Discover captivating destinations, from breathtaking landscapes to vibrant cultures, as you immerse yourself in the wonders of the world.
+              Our carefully crafted itineraries ensure every moment is filled with awe and excitement, connecting you with hidden gems and local communities. 
+              Create cherished memories that will last a lifetime as you explore thrilling escapades, serene retreats, and cultural discoveries. Let us ignite 
+              your sense of adventure and guide you on an unforgettable expedition that will redefine the way you see the world..
             </p>
           </div>
 

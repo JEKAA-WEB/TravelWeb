@@ -1196,10 +1196,10 @@ address {
    */
 
 	.form-wrapper {
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		gap: 20px;
+		display: flex !important;
+		justify-content: flex-start !important;
+		align-items: center !important;
+		gap: 20px !important;
 	}
 
 	.footer-form .input-field {
